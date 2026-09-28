@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Hub</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #202020;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 62px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            border-bottom: 1px solid #e5e5e5;
+            gap: 18px;
+        }
+
+        .menu {
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #ff0000;
+        }
+
+        .search {
+            display: flex;
+            width: 54%;
+            margin-left: 90px;
+        }
+
+        .search input {
+            width: 100%;
+            height: 40px;
+            padding: 10px 15px;
+            font-size: 15px;
+            border: 1px solid #cfcfcf;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: #888;
+        }
+
+        .search button {
+            width: 58px;
+            border: 1px solid #cfcfcf;
+            background: #f5f5f5;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+        }
+
+        .search button:hover {
+            background: #e8e8e8;
+        }
+
+        .icons {
+            margin-left: auto;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+
+        /* MAIN */
+
+        .main {
+            display: flex;
+            height: calc(100vh - 62px);
+        }
+
+
+        /* LEFT SIDEBAR */
+
+        .sidebar {
+            width: 225px;
+            min-width: 225px;
+            height: 100%;
+            padding-top: 12px;
+            border-right: 1px solid #e5e5e5;
+            overflow-y: auto;
+        }
+
+        .side {
+            padding: 12px 22px;
+            font-size: 14px;
+            border-radius: 0 18px 18px 0;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .side:hover {
+            background: #f1f1f1;
+        }
+
+        .active {
+            background: #eeeeee;
+            font-weight: 600;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e2e2e2;
+            margin: 12px 0;
+        }
+
+        .heading {
+            padding: 10px 22px;
+            font-size: 12px;
+            color: #777;
+            font-weight: 600;
+        }
+
+
+        /* RIGHT CONTENT */
+
+        .content {
+            width: 100%;
+            height: 100%;
+            padding: 18px 28px;
+            overflow-y: auto;
+        }
+
+
+        /* CATEGORIES */
+
+        .categories {
+            display: flex;
+            gap: 9px;
+            overflow-x: auto;
+            margin-bottom: 22px;
+            padding-bottom: 4px;
+        }
+
+        .categories button {
+            border: 1px solid #ddd;
+            background: #f4f4f4;
+            padding: 9px 17px;
+            border-radius: 8px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .categories button:hover {
+            background: #ddd;
+        }
+
+        .categories .all {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+
+
+        /* VIDEOS */
+
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px 20px;
+        }
+
+        .video {
+            cursor: pointer;
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 155px;
+            border: none;
+            border-radius: 9px;
+        }
+
+        .video h3 {
+            font-size: 15px;
+            margin-top: 9px;
+            line-height: 1.3;
+        }
+
+        .video p {
+            color: #777;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .video:hover h3 {
+            color: #555;
+        }
+
+
+        /* SCROLLBAR */
+
+        .sidebar::-webkit-scrollbar,
+        .content::-webkit-scrollbar,
+        .categories::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb,
+        .content::-webkit-scrollbar-thumb,
+        .categories::-webkit-scrollbar-thumb {
+            background: #aaa;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-track,
+        .content::-webkit-scrollbar-track,
+        .categories::-webkit-scrollbar-track {
+            background: #f3f3f3;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="logo">
+            <span><i class="fa-solid fa-play"></i></span> VideoHub
+        </div>
+
+        <div class="search">
+            <input type="text" placeholder="Search videos">
+            <button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <div class="icons">
+            <i class="fa-solid fa-microphone"></i>
+           　<i class="fa-solid fa-bell"></i>
+           　<i class="fa-solid fa-circle-user"></i>
+        </div>
+
+    </header>
+
+
+    <div class="main">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <div class="sidebar">
+
+            <div class="side active">🏠 Home</div>
+
+            <div class="side">🔥 Explore</div>
+
+            <div class="side">📺 Subscriptions</div>
+
+            <hr>
+
+            <div class="side">📚 Library</div>
+
+            <div class="side">🕘 History</div>
+
+            <div class="side">🎥 Your videos</div>
+
+            <div class="side">⏰ Watch later</div>
+
+            <div class="side">👍 Liked videos</div>
+
+            <hr>
+
+            <div class="heading">
+                SUBSCRIPTIONS
+            </div>
+
+            <div class="side">🎵 Music</div>
+
+            <div class="side">🏆 Sports</div>
+
+            <div class="side">🎮 Gaming</div>
+
+            <div class="side">📰 News</div>
+
+            <div class="side">🎬 Movies</div>
+
+            <div class="side">💻 Technology</div>
+
+            <div class="side">📚 Education</div>
+
+            <div class="side">🎨 Design</div>
+
+        </div>
+
+
+        <!-- RIGHT CONTENT -->
+
+        <div class="content">
+
+
+            <!-- CATEGORIES -->
+
+            <div class="categories">
+
+                <button class="all">All</button>
+
+                <button>Music</button>
+
+                <button>Gaming</button>
+
+                <button>UI Design</button>
+
+                <button>Movies</button>
+
+                <button>Logos</button>
+
+                <button>Graphic Design</button>
+
+                <button>Websites</button>
+
+                <button>Computer Science</button>
+
+                <button>Technology</button>
+
+            </div>
+
+
+            <!-- VIDEOS -->
+
+            <div class="videos">
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Modern Web Development</h3>
+                    <p>Code Academy</p>
+                    <p>521K views • 5 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Latest UI Design Ideas</h3>
+                    <p>Creative Studio</p>
+                    <p>421K views • 3 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Complete Website Guide</h3>
+                    <p>Design Academy</p>
+                    <p>3.7M views • 2 years ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Start Your Data Career</h3>
+                    <p>Career Hub</p>
+                    <p>86K views • 1 month ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Creative Design Tips</h3>
+                    <p>Design World</p>
+                    <p>230K views • 1 year ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Graphic Design Masterclass</h3>
+                    <p>Design Academy</p>
+                    <p>900K views • 6 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Build Better Websites</h3>
+                    <p>Web Academy</p>
+                    <p>120K views • 2 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Computer Science Explained</h3>
+                    <p>CS Learning</p>
+                    <p>210K views • 1 month ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>HTML & CSS Complete Course</h3>
+                    <p>Programming Hub</p>
+                    <p>450K views • 4 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>JavaScript From Scratch</h3>
+                    <p>Code School</p>
+                    <p>780K views • 6 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Clean Website Layouts</h3>
+                    <p>Creative Academy</p>
+                    <p>320K views • 3 months ago</p>
+                </div>
+
+
+                <div class="video">
+                    <iframe
+                    src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                    allowfullscreen></iframe>
+
+                    <h3>Programming Basics</h3>
+                    <p>Learning Zone</p>
+                    <p>210K views • 2 months ago</p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
